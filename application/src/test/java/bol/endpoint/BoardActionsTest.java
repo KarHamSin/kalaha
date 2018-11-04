@@ -4,7 +4,6 @@ import bol.business.BoardActions;
 import bol.model.Board;
 import bol.model.Player;
 import org.bson.types.ObjectId;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +79,7 @@ public class BoardActionsTest {
         boardActions.distributeStones(pitIndex, board);
         board.getPits().set(pitIndex,1);
         boardActions.captureStonesIfApplicable(pitIndex);
-        assertEquals(new Integer(7), board.getBigPits().get(0));
+        assertEquals(new Integer(9), board.getBigPits().get(0));
         assertEquals(0, (int) board.getPits().get(pitIndex));
         assertEquals(0, (int) board.getPits().get(11-pitIndex));
     }
@@ -88,10 +87,10 @@ public class BoardActionsTest {
     @Test
     public void captureStonesIfApplicablePlayerTwo() {
         Board board = new Board(new ObjectId(SESSION_ID));
-        int pitIndex = 7;
-        boardActions.distributeStones(pitIndex, board);
-        board.getPits().set(pitIndex,1);
+        int pitIndex = 8;
         board.setTurn(Player.PLAYERTWO);
+        boardActions.distributeStones(pitIndex, board); //make independent
+        board.getPits().set(pitIndex,1);
         boardActions.captureStonesIfApplicable(pitIndex);
 
         assertEquals(new Integer(8), board.getBigPits().get(1));

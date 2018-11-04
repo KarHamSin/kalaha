@@ -103,13 +103,14 @@ public class BoardActions {
             board.getPits().set(pitIndex, 0);
             int stones = 1;
             if(board.getTurn().getPlayerId()==0){
-                stones += board.getPits().get(pitIndex+6);
+                stones += board.getPits().get(11-pitIndex);
                 board.getPits().set(11-pitIndex, 0);
             } else {
-                stones += board.getPits().get(pitIndex-6);
+                stones += board.getPits().get(11-pitIndex);
                 board.getPits().set(11-pitIndex, 0);
             }
-            board.getBigPits().add(board.getTurn().getPlayerId(), stones);
+            int currentAmountBigPit=board.getBigPits().get(board.getTurn().getPlayerId());
+            board.getBigPits().set(board.getTurn().getPlayerId(), currentAmountBigPit+stones);
         }
     }
 
